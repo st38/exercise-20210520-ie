@@ -1,0 +1,7 @@
+name 'errbit'
+maintainer 'st38'
+maintainer_email 'github/st38'
+license 'All Rights Reserved'
+description 'Installs/Configures errbit'
+version '0.1.0'
+chef_version '>= 15.0'

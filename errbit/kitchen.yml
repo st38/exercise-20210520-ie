@@ -1,0 +1,42 @@
+---
+driver:
+  name: ec2
+  region: eu-central-1
+  instance_type: t3a.medium
+  associate_public_ip: true
+  interface: dns
+
+transport:
+  connection_timeout: 10
+  connection_retries: 5
+
+provisioner:
+  name: chef_zero
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: ubuntu-20.04
+    driver:
+      image_search:
+        owner-id: "099720109477" # Canonical
+        name: ubuntu/images/*/ubuntu-*-20.04*
+        architecture: x86_64
+    transport:
+      username: ubuntu
+  - name: debian-10
+    driver:
+      image_search:
+        owner-id: "136693071363" # Debian
+        architecture: x86_64
+    transport:
+        username: admin
+
+suites:
+  - name: default
+    run_list:
+      - recipe[errbit::default]
+    verifier:
+      inspec_tests:
+        - test/integration/default
